@@ -24,13 +24,13 @@ target_link_libraries( cmosCalibration ${OpenCV_LIBS} )
 add_executable( omniCalibration src/omniCalibration.cpp )
 target_link_libraries( omniCalibration ${OpenCV_LIBS} )
 
-add_executable( camCapture src/camCapture.cpp src/v4ldevice.cpp)
-target_compile_definitions(camCapture PRIVATE DOCOPT_HEADER_ONLY=1)
-target_link_libraries( camCapture ${OpenCV_LIBS} )
+#add_executable( camCapture src/camCapture.cpp src/v4ldevice.cpp)
+#target_compile_definitions(camCapture PRIVATE DOCOPT_HEADER_ONLY=1)
+#target_link_libraries( camCapture ${OpenCV_LIBS} )
 
-add_executable( positionCalibration src/positionCalibration.cpp src/v4ldevice.cpp)
-target_compile_definitions(positionCalibration PRIVATE DOCOPT_HEADER_ONLY=1)
-target_link_libraries( positionCalibration ${OpenCV_LIBS} )
+#add_executable( positionCalibration src/positionCalibration.cpp src/v4ldevice.cpp)
+#target_compile_definitions(positionCalibration PRIVATE DOCOPT_HEADER_ONLY=1)
+#target_link_libraries( positionCalibration ${OpenCV_LIBS} )
 
 
 add_custom_target(cmosCalibration_demo
