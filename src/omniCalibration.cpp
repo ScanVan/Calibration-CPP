@@ -1,5 +1,5 @@
 #include "omnidir.cpp"
-#include "opencv2/ccalib/omnidir.hpp"
+#include "opencv4/opencv2/ccalib/omnidir.hpp"
 #include "opencv2/core.hpp"
 #include "opencv2/imgproc.hpp"
 #include "opencv2/calib3d.hpp"
@@ -258,10 +258,12 @@ int main(int argc, char** argv) {
 
 
 	cv::Mat map1, map2;
-	omnidir::initUndistortRectifyMap(K, D, _xi, R, Knew, imageSizeUndistort, CV_16SC2, map1, map2, cv::omnidir::RECTIFY_LONGLATI);
+	omnidir::initUndistortRectifyMap(K, D, _xi, R, Knew, imageSizeUndistort, CV_32FC1, map1, map2, cv::omnidir::RECTIFY_LONGLATI);
 	//omnidir::initUndistortRectifyMap(K, D, _xi, R, cv::noArray(), imageSizeUndistort, CV_16SC2, map1, map2, cv::omnidir::RECTIFY_PERSPECTIVE);
-
-
+	cv::FileStorage map1File("map1.xml", cv::FileStorage::WRITE);
+	map1File << "mat_map1" << map1;
+	cv::FileStorage map2File("map2.xml", cv::FileStorage::WRITE);
+	map2File << "mat_map2" << map2;
 
 	long accum(0); // variable to measure the running time
 
@@ -298,7 +300,7 @@ int main(int argc, char** argv) {
 
 		ostringstream s1;
 		// Create image name files with ascending grabbed image numbers.
-		s1 << "/home/scanvandev/ScanVan/Calibration/img/trajectoryA_fixed" << "/img_0_" << i << ".bmp";
+		s1 << "img/trajectoryA_fixed" << "/img_0_" << i << ".bmp";
 		string imageFileName(s1.str());
 
 		Mat distorted = imread(imageFileName, IMREAD_COLOR);
@@ -309,7 +311,7 @@ int main(int argc, char** argv) {
 		cv::remap(distorted, undistorted, map1, map2, INTER_CUBIC, BORDER_CONSTANT);
 
 		ostringstream s2;
-		s2 << "/home/scanvandev/ScanVan/Calibration/img/trajectoryA_fixed/equirectangular" << "/img_equi_0_" << i << ".bmp";
+		s2 << "img/trajectoryA_fixed/equirectangular" << "/img_equi_0_" << i << ".bmp";
 		string outputFileName(s2.str());
 
 		//save images into file
@@ -322,7 +324,7 @@ int main(int argc, char** argv) {
 
 			ostringstream s1;
 			// Create image name files with ascending grabbed image numbers.
-			s1 << "/home/scanvandev/ScanVan/Calibration/img/trajectoryB_auto" << "/img_0_" << i << ".bmp";
+			s1 << "img/trajectoryB_auto" << "/img_0_" << i << ".bmp";
 			string imageFileName(s1.str());
 
 			Mat distorted = imread(imageFileName, IMREAD_COLOR);
@@ -333,7 +335,7 @@ int main(int argc, char** argv) {
 			cv::remap(distorted, undistorted, map1, map2, INTER_CUBIC, BORDER_CONSTANT);
 
 			ostringstream s2;
-			s2 << "/home/scanvandev/ScanVan/Calibration/img/trajectoryB_auto/equirectangular" << "/img_equi_0_" << i << ".bmp";
+			s2 << "img/trajectoryB_auto/equirectangular" << "/img_equi_0_" << i << ".bmp";
 			string outputFileName(s2.str());
 
 			//save images into file
@@ -346,7 +348,7 @@ int main(int argc, char** argv) {
 
 				ostringstream s1;
 				// Create image name files with ascending grabbed image numbers.
-				s1 << "/home/scanvandev/ScanVan/Calibration/img/trajectoryC_fixed" << "/img_0_" << i << ".bmp";
+				s1 << "img/trajectoryC_fixed" << "/img_0_" << i << ".bmp";
 				string imageFileName(s1.str());
 
 				Mat distorted = imread(imageFileName, IMREAD_COLOR);
@@ -357,7 +359,7 @@ int main(int argc, char** argv) {
 				cv::remap(distorted, undistorted, map1, map2, INTER_CUBIC, BORDER_CONSTANT);
 
 				ostringstream s2;
-				s2 << "/home/scanvandev/ScanVan/Calibration/img/trajectoryC_fixed/equirectangular" << "/img_equi_0_" << i << ".bmp";
+				s2 << "img/trajectoryC_fixed/equirectangular" << "/img_equi_0_" << i << ".bmp";
 				string outputFileName(s2.str());
 
 				//save images into file
@@ -370,7 +372,7 @@ int main(int argc, char** argv) {
 
 					ostringstream s1;
 					// Create image name files with ascending grabbed image numbers.
-					s1 << "/home/scanvandev/ScanVan/Calibration/img/trajectoryD_calib" << "/img_0_" << i << ".bmp";
+					s1 << "img/trajectoryD_calib" << "/img_0_" << i << ".bmp";
 					string imageFileName(s1.str());
 
 					Mat distorted = imread(imageFileName, IMREAD_COLOR);
@@ -381,7 +383,7 @@ int main(int argc, char** argv) {
 					cv::remap(distorted, undistorted, map1, map2, INTER_CUBIC, BORDER_CONSTANT);
 
 					ostringstream s2;
-					s2 << "/home/scanvandev/ScanVan/Calibration/img/trajectoryD_calib/equirectangular" << "/img_equi_0_" << i << ".bmp";
+					s2 << "img/trajectoryD_calib/equirectangular" << "/img_equi_0_" << i << ".bmp";
 					string outputFileName(s2.str());
 
 					//save images into file
